@@ -1,5 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <!--
 `rating-system-element`
 Rate content with emojis!
@@ -351,9 +351,15 @@ Rate content with emojis!
       is: 'rating-system-element',
       properties: {
       },
-        handleTap: function(e) {
-            var relative = e.parentElement.getElementsByClassName("reaction-counter")[0];
-            relative.childNodes[0].nodeValue = toString(parseInt(relative.childNodes[0].nodeValue) + 1);
+        handleTap: function(e){
+            console.log(e.target.className);
+            if(e.target.children.length === 0){
+                e.target.parentElement.click();
+            }
+            else {
+            var relative = e.target.parentElement.getElementsByClassName("reaction-counter")[0];
+                relative.children[0].innerHTML = '' + (parseInt(relative.children[0].innerHTML) + 1);
+            }
       },
     });
   </script>
