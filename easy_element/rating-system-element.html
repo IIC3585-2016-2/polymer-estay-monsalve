@@ -1,0 +1,360 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`rating-system-element`
+Rate content with emojis!
+
+@demo demo/index.html 
+-->
+
+<dom-module id="rating-system-element">
+  <template>
+    <style>
+      :host {
+         display: block;
+         margin: 0;
+         display: flex;
+         width: 100%;
+         height: 100%;
+         background-color: #FFFCEF;
+      }
+     .head {
+         display: flex;
+         justify-content: center;
+         flex-wrap: wrap;
+         margin: auto;
+         width: 50px;
+         height: 50px;
+         background-color: #FFEB97;
+         border-radius: 50%;
+         position: relative;
+     }
+     .face {
+         display: flex;
+         justify-content: center;
+         flex-wrap: wrap;
+         margin: auto;
+         width: 50px;
+         height: 50px;
+         position: relative;
+     }
+     .face__happy {
+         animation: happy-look 5s infinite;
+     }
+     .face__standard {
+         animation: standard-look 5s infinite;
+     }
+     .face__sad {
+         animation: sad-look 5s infinite;
+     }
+     .face__happy .eye-left {
+         width: 5px;
+         height: 5px;
+         background-color: #000;
+         border-radius: 50%;
+         top: 15px;
+         left: 9px;
+         position: absolute;
+         animation: blink 5s infinite;
+     }
+     .face__happy .eye-right {
+         width: 5px;
+         height: 5px;
+         background-color: #000;
+         border-radius: 50%;
+         top: 15px;
+         right: 9px;
+         position: absolute;
+         animation: blink 5s infinite;
+     }
+     .face__happy .mouth {
+         width: 20px;
+         height: 10px;
+         border-style: solid;
+         border-radius: 50%;
+         border-width: 1px;
+         border-color: transparent transparent #000 transparent;
+         left: 13px;
+         top: 15px;
+         position: absolute;
+         animation: happy-mouth 5s infinite;
+     }
+     .face__standard .eye-left {
+         width: 5px;
+         height: 5px;
+         background-color: #000;
+         border-radius: 50%;
+         top: 25px;
+         left: 9px;
+         position: absolute;
+         animation: blink 5s infinite;
+         animation-delay: 1.3s;
+     }
+     .face__standard .eye-right {
+         width: 5px;
+         height: 5px;
+         background-color: #000;
+         border-radius: 50%;
+         top: 25px;
+         right: 9px;
+         position: absolute;
+         animation: blink 5s infinite;
+         animation-delay: 1.3s;
+     }
+     .face__standard .mouth {
+         width: 15px;
+         height: 1px;
+         border-radius: 1px;
+         background-color: #000;
+         left: 18px;
+         top: 35px;
+         position: absolute;
+     }
+     .face__sad .eye-left {
+         width: 5px;
+         height: 5px;
+         background-color: #000;
+         border-radius: 50%;
+         top: 30px;
+         left: 9px;
+         position: absolute;
+         animation: blink 5s infinite;
+         animation-delay: 3.7s;
+     }
+     .face__sad .eye-right {
+         width: 5px;
+         height: 5px;
+         background-color: #000;
+         border-radius: 50%;
+         top: 30px;
+         right: 9px;
+         position: absolute;
+         animation: blink 5s infinite;
+         animation-delay: 3.7s;
+     }
+     .face__sad .mouth {
+         width: 20px;
+         height: 10px;
+         border-style: solid;
+         border-radius: 50%;
+         border-width: 1px;
+         border-color: #000 transparent transparent transparent;
+         left: 13px;
+         top: 37px;
+         position: absolute;
+         animation: sad-mouth 5s infinite;
+     }
+     @keyframes blink {
+         0% {
+             transform: scale(1, 1);
+         }
+         10% {
+             transform: scale(1, 1);
+         }
+         12% {
+             transform: scale(1, .1);
+         }
+         14% {
+             transform: scale(1, 1);
+         }
+         30% {
+             transform: scale(1, 1);
+         }
+         32% {
+             transform: scale(1, .1);
+         }
+         34% {
+             transform: scale(1, 1);
+         }
+         60% {
+             transform: scale(1, 1);
+         }
+         62% {
+             transform: scale(1, .1);
+         }
+         64% {
+             transform: scale(1, 1);
+         }
+     }
+     @keyframes happy-look {
+         0% {
+             transform: translate(0px, 0px);
+         }
+         10% {
+             transform: translate(2px, 0px);
+         }
+         20% {
+             transform: translate(2px, 0px);
+         }
+         30% {
+             transform: translate(0px, 0px);
+         }
+         60% {
+             transform: translate(0px, 0px);
+         }
+         70% {
+             transform: translate(-2px, -3px);
+         }
+         80% {
+             transform: translate(-2px, -3px);
+         }
+         90% {
+             transform: translate(0px, 0px);
+         }
+     }
+     @keyframes happy-mouth {
+         0% {
+             height: 10px;
+         }
+         10% {
+             height: 10px;
+         }
+         20% {
+             height: 10px;
+         }
+         30% {
+             height: 10px;
+         }
+         60% {
+             height: 10px;
+         }
+         70% {
+             height: 8px;
+         }
+         80% {
+             height: 8px;
+         }
+         90% {
+             height: 10px;
+         }
+     }
+     @keyframes standard-look {
+         0% {
+             transform: translate(0px, 0px);
+         }
+         10% {
+             transform: translate(-5px, 0px);
+         }
+         20% {
+             transform: translate(-5px, 0px);
+         }
+         30% {
+             transform: translate(0px, 0px);
+         }
+         60% {
+             transform: translate(0px, 0px);
+         }
+         70% {
+             transform: translate(3px, -3px);
+         }
+         80% {
+             transform: translate(3px, -3px);
+         }
+         90% {
+             transform: translate(0px, 0px);
+         }
+     }
+
+     @keyframes sad-look {
+         0% {
+             transform: translate(0px, 0px);
+         }
+         15% {
+             transform: translate(0px, 0px);
+         }
+         25% {
+             transform: translate(0px, -5px);
+         }
+         35% {
+             transform: translate(0px, -5px);
+         }
+         45% {
+             transform: translate(0px, 0px);
+         }
+         70% {
+             transform: translate(0px, 0px);
+         }
+         80% {
+             transform: translate(-3px, -5px);
+         }
+         90% {
+             transform: translate(-3px, -5px);
+         }
+         100% {
+             transform: translate(0px, 0px);
+         }
+     }
+     @keyframes sad-mouth {
+         0% {
+             height: 5px;
+         }
+         15% {
+             height: 5px;
+         }
+         25% {
+             height: 10px;
+         }
+         35% {
+             height: 10px;
+         }
+         45% {
+             height: 5px;
+         }
+         70% {
+             height: 5px;
+         }
+         80% {
+             height: 10px;
+         }
+         90% {
+             height: 10px;
+         }
+         100% {
+             height: 5px;
+         }
+     }
+    </style>
+    <div class="head">
+        <div id="happy" class="face face__happy" on-tap="handleTap">
+            <div class="eye-left"></div>
+            <div class="eye-right"></div>
+            <div class="mouth"></div>
+        </div>
+        <div class="reaction-counter">
+            <p>0</p>
+        </div>
+    </div>
+    <div class="head">
+        <div id="standard" class="face face__standard" on-tap="handleTap">
+            <div class="eye-left"></div>
+            <div class="eye-right"></div>
+            <div class="mouth"></div>
+        </div>
+        <div class="reaction-counter">
+            <p>0</p>
+        </div>
+    </div>
+    <div class="head">
+        <div id="sad" class="face face__sad" on-tap="handleTap">
+            <div class="eye-left"></div>
+            <div class="eye-right"></div>
+            <div class="mouth"></div>
+        </div>
+        <div class="reaction-counter">
+            <p>0</p>
+        </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'rating-system-element',
+      properties: {
+      },
+        handleTap: function(e) {
+            var relative = e.parentElement.getElementsByClassName("reaction-counter")[0];
+            relative.childNodes[0].nodeValue = toString(parseInt(relative.childNodes[0].nodeValue) + 1);
+      },
+    });
+  </script>
+</dom-module>
