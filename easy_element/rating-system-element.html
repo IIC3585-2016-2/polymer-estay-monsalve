@@ -15,8 +15,7 @@ Rate content with emojis!
          margin: 0;
          display: flex;
          width: 100%;
-         height: 100%;
-         background-color: #FFFCEF;
+         height: 150px;
       }
      .head {
          display: flex;
@@ -313,6 +312,40 @@ Rate content with emojis!
              height: 5px;
          }
      }
+     .reaction-counter p {
+         text-align: center;
+         font-weight: bold;
+         font-size: 0.9em;
+         color: #fff;
+         margin-top: 5px;
+         font-weight: 400;
+     }
+
+     .reaction-counter {
+         margin-top: 12px;
+         position: relative;
+         background: rgba(0,0,0,0.5);
+         width: 35px;
+         height: 28px;
+         border-radius: 7px;
+     }
+
+     .reaction-counter:after,
+     .reaction-counter:before {
+         bottom: 100%;
+         border: solid transparent;
+         content: " ";
+         height: 0;
+         width: 0;
+         position: absolute;
+     }
+
+     .reaction-counter:after {
+         border-bottom-color: rgba(0,0,0,0.5);
+         border-width: 6px;
+         left: 50%;
+         margin-left: -6px;
+     }
     </style>
     <div class="head">
         <div id="happy" class="face face__happy" on-tap="handleTap">
@@ -321,7 +354,7 @@ Rate content with emojis!
             <div class="mouth"></div>
         </div>
         <div class="reaction-counter">
-            <p>0</p>
+            <p>[[happyCounter]]</p>
         </div>
     </div>
     <div class="head">
@@ -331,7 +364,7 @@ Rate content with emojis!
             <div class="mouth"></div>
         </div>
         <div class="reaction-counter">
-            <p>0</p>
+            <p>[[standardCounter]]</p>
         </div>
     </div>
     <div class="head">
@@ -341,24 +374,44 @@ Rate content with emojis!
             <div class="mouth"></div>
         </div>
         <div class="reaction-counter">
-            <p>0</p>
+            <p>[[sadCounter]]</p>
         </div>
     </div>
   </template>
 
   <script>
-    Polymer({
-      is: 'rating-system-element',
-      properties: {
+   Polymer({
+       is: 'rating-system-element',
+       properties: {
+           happyCounter: {
+               type: Number,
+               value: 0,
+           },
+           standardCounter: {
+               type: Number,
+               value: 0,
+           },
+           sadCounter: {
+               type: Number,
+               value: 0,
+           },
       },
         handleTap: function(e){
-            console.log(e.target.className);
             if(e.target.children.length === 0){
                 e.target.parentElement.click();
             }
             else {
-            var relative = e.target.parentElement.getElementsByClassName("reaction-counter")[0];
-                relative.children[0].innerHTML = '' + (parseInt(relative.children[0].innerHTML) + 1);
+                if (e.target.id === "happy"){
+                    this.happyCounter++;
+                }
+                else if (e.target.id === "standard"){
+                    this.standardCounter++;
+                }
+                else{
+                    this.sadCounter++;
+                }
+                /* var relative = e.target.parentElement.getElementsByClassName("reaction-counter")[0];*/
+                /* relative.children[0].innerHTML = '' + (parseInt(relative.children[0].innerHTML) + 1);*/
             }
       },
     });
