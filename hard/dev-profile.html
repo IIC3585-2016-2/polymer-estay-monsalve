@@ -1,0 +1,90 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+
+<!--
+`dev-profile`
+
+
+@demo demo/index.html 
+-->
+
+<dom-module id="dev-profile">
+      <link rel="import" type="css" href="dev-profile.css">
+  <template>
+    <style>
+
+    </style>
+          <div class="snip1344">
+              <img id="user-avatar" src="" class="profile" />
+              <h3 id="user-name"></h3>
+              <a id="user-github-url" href="">
+              <h4><i class="fa fa-github fa-2x" aria-hidden="true"></i> [[githubUser]]</h4>
+              </a>
+              <a href="https://twitter.com/[[twitterUser]]" class="twitter-follow-button" data-show-count="true">Follow @[[twitterUser]]</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+              <div class="card-profile_user-stats">
+                  <div class="stats-holder">
+                      <div class="user-stats">
+                          <strong>Repos</strong>
+                          <span id="user-repos">1,337</span>
+                      </div>
+                      <div class="user-stats">
+                          <strong>Following</strong>
+                          <span id="user-following"></span>
+                      </div>
+                      <div class="user-stats">
+                          <strong>Followers</strong>
+                          <span id="user-followers"></span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+</template>
+<script src="https://use.fontawesome.com/8b4d91c674.js"></script>
+  <script>
+
+    Polymer({
+
+      is: 'dev-profile',
+
+      properties: {
+          githubUser: {
+              type: String,
+              value: "oaestay",
+          },
+          twitterUser: {
+              type: String,
+              value: "OscarinEstay",
+          },
+      },
+      url: 'https://api.github.com/users/',
+      getUser: function() {
+            var self = this;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', this.url + this.githubUser);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === xhr.DONE) {
+                    status = xhr.status;
+                    if ((status >= 200 && status < 300) || status === 304 || status === 0) {
+                        response = JSON.parse(xhr.response || xhr.responseText);
+                        self.fillUser(response);
+                    }
+                }
+            };
+            xhr.send();
+        },
+        fillUser: function(user) {
+            this.$['user-name'].textContent = user.name;
+            this.$['user-avatar'].src = user.avatar_url;
+            this.$['user-repos'].textContent = user.public_repos;
+            this.$['user-followers'].textContent = user.followers;
+            this.$['user-following'].textContent = user.following;
+            this.$['user-github-url'].href = user.html_url;
+        },
+        // Fires when the element was inserted into the document
+        attached: function() {
+            this.getUser();
+        },
+    });
+  </script>
+</dom-module>
