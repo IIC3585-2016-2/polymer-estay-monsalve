@@ -17,7 +17,7 @@
           overflow: hidden;
           margin: 0;
           min-width: 230px;
-          height: 325px;
+          height: 375px;
           width: 100%;
           color: #ffffff;
           text-align: center;
@@ -35,8 +35,8 @@
       .profile {
           border-radius: 50%;
           position: relative;
-          top: 10px;
-          max-width: 100px;
+          top: 20px;
+          max-width: 150px;
           opacity: 1;
           box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
           border: 2px solid rgba(255, 255, 255, 0.5);
@@ -91,7 +91,7 @@
       .card-profile_user-stats .stats-holder {
           position: absolute;
           width: 100%;
-          top: calc( 60% + 4em);
+          top: calc( 70% + 4em);
           display: -webkit-box;
           display: -webkit-flex;
           display: -ms-flexbox;
