@@ -13,9 +13,15 @@ Crea un sistema de reacciones parecido al de Facebook, la versión 2 maneja que 
 Entregando el usuario de github y de twitter, devuelve una tarjeta que muestra un profile del developer.
 ## Referencias
 Se usó css de :
+
 http://codepen.io/littlesnippets/pen/WrMOWG
+
 http://codepen.io/LukyVj/pen/ZbEvmp
+
 http://codepen.io/PButcher/pen/wMxwbr
+
 http://codepen.io/astridfarmer/pen/LNOMze
+
 Se usó la librería:
+
 https://github.com/OneSignal/emoji-picker
