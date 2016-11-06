@@ -71,15 +71,6 @@
           position: relative;
       }
       
-      .info ul li {
-          float: left;
-          padding: 10px 0px;
-          width: 50%;
-          text-align: center;
-          border-right: 1px solid #eeeeee;
-          border-left: 1px solid #ffffff;
-      }
-      
       .card-profile_user-stats {
           float: left;
           width: 100%;
@@ -111,7 +102,7 @@
           float: left;
           clear: both;
           width: 100%;
-          color: #B3B1B2;
+          color: #FFFFFF;
           font-size: 14px;
           font-weight: 500;
           letter-spacing: -0.2px;
@@ -119,7 +110,7 @@
       
       .card-profile_user-stats .user-stats span {
           font-size: 26px;
-          color: #5E5E5E;
+          color: #FFFFFF;
           padding: .18em 0;
           display: inline-block;
       }
