@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+        <title>presentation-component demo</title>
+
+        <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+        <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+        <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+        <link rel="import" href="../presentation-component.html">
+
+        <style is="custom-style" include="demo-pages-shared-styles">
+        </style>
+        <style>
+         .centered:not([style-scope]):not(.style-scope){
+             max-width: 80%;
+             min-width: 450px;
+         };
+        </style>
+    </head>
+    <body>
+        <div class="vertical-section-container centered">
+            <h3>Basic presentation-component demo</h3>
+            <demo-snippet>
+                <template>
+                    <presentation-component>
+                        <div>
+                            <h1>Title</h1>
+                            <h2>Sub-Title</h2>
+                            <p>Paragraph</p>
+                            <ul>
+                                <li>Object 1</li>
+                                <li>Object 2</li>
+                                <li>Object 3</li>
+                            </ul>
+                            <ol>
+                                <li>Object 1</li>
+                                <li>Object 2</li>
+                                <li>Object 3</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h1>Latex</h1>
+                            <p class="latex">x + 4</p>
+                            <p class="latex">\int_{a}^{b} x^2 dx</p>
+                            <p class="latex">\sum_{n=1}^{\infty} 2^{-n} = 1</p>
+                        </div>
+                        <div>
+                            <h1>Code</h1>
+                            <pre>
+                                <code class="javascript">
+var hello = "Hello ";
+console.log("Hello World!");
+var next = (n) => { return n.next };
+                                </code>
+                            </pre>
+                        </div>
+                    </presentation-component>
+                </template>
+            </demo-snippet>
+        </div>
+    </body>
+</html>

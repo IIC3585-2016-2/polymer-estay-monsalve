@@ -1,0 +1,178 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<script src="../highlightjs/highlight.pack.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+
+<!--
+     `presentation-component`
+     A component to create presentations with highlight &amp; latex.
+
+     @demo demo/index.html
+   -->
+
+<dom-module id="presentation-component">
+    <link rel="import" type="css" href="monokai.css">
+    <template>
+        <style>
+         :host {
+             display: block;
+             width: 100%;
+             height: 100%;
+             position: relative;
+         }
+         .presentation {
+             font-size: 0.8em;
+             width: 400px;
+             height: 238px;
+             position: relative;
+         }
+         .presentation[wide-layout] {
+             font-size: 1.4em;
+             width: 800px;
+             height: 475px;
+             margin: 0 auto;
+         }
+         :host ::content .presentation div{
+             width: 400px;
+             height: 0;
+             visibility: hidden;
+             overflow: hidden;
+         }
+         :host ::content .presentation div .view{
+             height: 228px;
+             visibility: visible;
+         }
+         :host ::content .presentation[wide-layout] div {
+             width: 800px;
+             height: 0;
+             visibility: hidden;
+             overflow: hidden;
+         }
+         :host ::content .presentation[wide-layout] div .view{
+             height: 450px;
+             visibility: visible;
+         }
+         :host ::content .presentation h1, :host ::content .presentation h2, :host ::content .presentation h3, :host ::content .presentation h4, :host ::content .presentation h5, :host ::content .presentation h6, :host ::content .presentation p {
+             text-align: center;
+         }
+         :host ::content {
+         }
+         .navg {
+             bottom: 0;
+             position: absolute;
+             z-index: 1;
+         }
+         prev {
+             left: 0;
+         }
+         .next {
+             right: 0;
+         }
+         .pages{
+             width: 100%;
+             z-index: 0;
+         }
+         .pages p{
+             text-align: center;
+             margin: 0;
+             z-index: 0;
+             height: 25px;
+             width: 100%;
+         }
+        </style>
+        <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
+        <div class="presentation" wide-layout$="{{wide}}">
+            <content></content>
+            <span class="navg prvs" on-tap="prvsTap">Prev</span>
+            <span class="navg next" on-tap="nextTap">Next</span>
+            <span class="navg pages"><p>[[currentView]]/[[childCount]]</p></span>
+        </div>
+    </template>
+    <script>
+     Polymer({
+         is: 'presentation-component',
+         behaviors: [Polymer.IronA11yKeysBehavior],
+         keyBindings: {
+             'left': 'prvsTap',
+             'right': 'nextTap',
+         },
+         properties: {
+             boundKeys: {
+                 type: Array,
+                 value: function() {
+                     return Object.keys(this.keyBindings).join(' ').split(' ');
+                 }
+             },
+             preventDefault: {
+                 type: Boolean,
+                 value: true,
+                 notify: true
+             },
+             keyEventTarget: {
+                 type: Object,
+                 value: function() {
+                     return document.body;
+                 }
+             }
+         },
+         keyBindings: {
+             'left': '_prvsTap',
+             'right': '_nextTap',
+         },
+         attached: function () {
+             this.childCount = Polymer.dom(this).children.length;
+             if(this.childCount > 0){
+                 this.currentView = 1;
+                 Polymer.dom(this).children[0].className = "view";
+                 this.wide ? Polymer.dom(this).children[0].style.height = 450 + "px": Polymer.dom(this).children[0].style.height = 238 + "px";
+                 Polymer.dom(this).children[0].style.visibility = "visible";
+             }
+             Polymer.dom(this).querySelectorAll(".latex").forEach(function(b){katex.render(b.innerHTML, b)});
+             Polymer.dom(this).querySelectorAll("pre dom").forEach(function(i, b){hljs.highlightBlock(b)});
+             console.log(Polymer.dom(this).querySelectorAll(".in-presentation"));
+             Polymer.dom(this).querySelectorAll(".in-presentation").forEach(function(b){
+                 b.addEventListener('tap', 'handleGoTo');
+             });
+         },
+         changeTo: function (index) {
+             Polymer.dom(this).children[this.currentView - 1].className = "";
+             Polymer.dom(this).children[this.currentView - 1].style.height = "0px";
+             Polymer.dom(this).children[this.currentView - 1].style.visibility = "hidden";
+             this.currentView = index;
+             Polymer.dom(this).children[this.currentView - 1].className = "view";
+             this.wide ? Polymer.dom(this).children[this.currentView - 1].style.height = 450 + "px": Polymer.dom(this).children[this.currentView - 1].style.height = 238 + "px";
+             Polymer.dom(this).children[this.currentView - 1].style.visibility = "visible";
+         },
+         prvsTap: function () {
+             if (this.currentView === 1){
+                 this.changeTo(this.childCount);
+             } else {
+                 this.changeTo(this.currentView - 1);
+             }
+         },
+         nextTap: function () {
+             if (this.currentView === (this.childCount)){
+                 this.changeTo(1);
+             } else {
+                 this.changeTo(this.currentView + 1);
+             }
+         },
+         _prvsTap: function (event) {
+             this.prvsTap();
+         },
+         _nextTap: function (event) {
+             this.nextTap();
+         },
+         handleGoTo: function (e) {
+             console.log(e);
+             console.log("Goto");
+             changeTo(e.target.getAttribute('data-goto'));
+         },
+         addGoTo: function (e) {
+             this.listen(e, 'tap', 'handleGoTo');
+         },
+     });
+    </script>
+</dom-module>

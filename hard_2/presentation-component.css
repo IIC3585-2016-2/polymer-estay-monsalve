@@ -1,0 +1,51 @@
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      .presentation {
+          font-size: 0.8em;
+          width: 400px;
+          height: 238px;
+          position: relative;
+      }
+      .presentation[wide-layout] {
+          font-size: 1.4em;
+          width: 800px;
+          height: 475px;
+          margin: 0 auto;
+      }
+      :host ::content .presentation div{
+          width: 400px;
+          height: 0;
+          visibility: hidden;
+          overflow: hidden;
+      }
+     :host ::content .presentation div .view{
+         height: 228px;
+         visibility: visible;
+      }
+      :host ::content .presentation[wide-layout] div {
+          width: 800px;
+          height: 0;
+          visibility: hidden;
+          overflow: hidden;
+      }
+     :host ::content .presentation[wide-layout] div .view{
+         height: 450px;
+         visibility: visible;
+      }
+      :host ::content .presentation h1, :host ::content .presentation h2, :host ::content .presentation h3, :host ::content .presentation h4, :host ::content .presentation h5, :host ::content .presentation h6, :host ::content .presentation p {
+          text-align: center;
+      }
+     :host ::content {
+     }
+
+     .navg {
+         position: absolute;
+         bottom: 0;
+      }
+     .next {
+         right: 0;
+      }
