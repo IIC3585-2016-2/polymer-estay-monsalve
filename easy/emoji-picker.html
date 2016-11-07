@@ -20,7 +20,7 @@ Using: https://github.com/OneSignal/emoji-picker
       }
     </style>
     <p class="lead emoji-picker-container">
-      <input type="email" class="form-control" placeholder="[[placeholder]]" data-emojiable="true">
+      <input type="email" class="form-control" placeholder="[[placeholder]]" value="[[val]]" data-emojiable="true">
     </p>
   </template>
 
@@ -32,6 +32,16 @@ Using: https://github.com/OneSignal/emoji-picker
           type: String,
           value: 'hola soy un placeholder',
         },
+        val: {
+          type: String,
+          value: 'value',
+        },
+      },
+      listeners: {
+        'keydown': 'onChangeInput'
+      },
+      onChangeInput: function(e) {
+        this.val = e.target.innerHTML;;
       },
     });
   </script>
